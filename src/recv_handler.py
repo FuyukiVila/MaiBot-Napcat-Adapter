@@ -7,6 +7,7 @@ import json
 import websockets as Server
 from typing import List, Tuple, Optional, Dict, Any
 import uuid
+from .compatibleDict import CompatibleDict, make_compatible
 
 from . import MetaEventType, RealMessageType, MessageType, NoticeType
 from maim_message import (
@@ -40,6 +41,7 @@ class RecvHandler:
         self._interval_checking = False
 
     async def handle_meta_event(self, message: dict) -> None:
+        message = make_compatible(message)
         event_type = message.get("meta_event_type")
         if event_type == MetaEventType.lifecycle:
             sub_type = message.get("sub_type")
@@ -107,6 +109,7 @@ class RecvHandler:
         Parameters:
             raw_message: dict: 原始消息
         """
+        raw_message = make_compatible(raw_message)
         message_type: str = raw_message.get("message_type")
         message_id: int = raw_message.get("message_id")
         # message_time: int = raw_message.get("time")
@@ -478,6 +481,7 @@ class RecvHandler:
         return seg_message
 
     async def handle_notice(self, raw_message: dict) -> None:
+        raw_message = make_compatible(raw_message)
         notice_type = raw_message.get("notice_type")
         # message_time: int = raw_message.get("time")
         message_time: float = time.time()  # 应可乐要求，现在是float了

@@ -2,6 +2,16 @@
 name = "MaiBotNapcatAdapter"
 version = "0.2.6"
 description = "A MaiBot adapter for Napcat"
+dependencies = [
+    "aiohttp>=3.12.13",
+    "asyncio>=3.4.3",
+    "loguru>=0.7.3",
+    "maim-message>=0.3.6",
+    "pillow>=11.2.1",
+    "requests>=2.32.4",
+    "tomli>=2.2.1",
+    "websockets>=15.0.1",
+]
 
 [tool.ruff]
 
