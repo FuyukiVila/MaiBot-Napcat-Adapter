@@ -1,6 +1,7 @@
 import re
 from typing import List, Dict, Any
 
+
 class CompatibleDict(dict):
     """
     兼容蛇形命名和驼峰命名的字典类
@@ -19,7 +20,7 @@ class CompatibleDict(dict):
     def camel_to_snake(camel_str: str) -> str:
         """将驼峰命名转换为蛇形命名"""
         # 在大写字母前插入下划线，然后转换为小写
-        snake_str = re.sub(r'(?<!^)(?=[A-Z])', '_', camel_str).lower()
+        snake_str = re.sub(r"(?<!^)(?=[A-Z])", "_", camel_str).lower()
         return snake_str
 
     def get(self, key, default=None):
@@ -37,15 +38,16 @@ class CompatibleDict(dict):
             camel_key = self.snake_to_camel(key)
             value = super().get(camel_key)
             if value is not None:
-                 return value
+                return value
         else:
             # 可能是 camelCase，尝试转换为 snake_case
             snake_key = self.camel_to_snake(key)
             value = super().get(snake_key)
             if value is not None:
-                 return value
+                return value
 
         return default
+
 
 def make_compatible(data: Any) -> Any:
     """
