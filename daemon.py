@@ -3,8 +3,10 @@ import time
 import sys
 import datetime
 
+
 def log(msg):
     print(f"[{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {msg}", flush=True)
+
 
 def main():
     while True:
@@ -17,6 +19,7 @@ def main():
         except Exception as e:
             log(f"守护进程异常：{e}，5秒后重试")
         time.sleep(5)
+
 
 if __name__ == "__main__":
     main()
