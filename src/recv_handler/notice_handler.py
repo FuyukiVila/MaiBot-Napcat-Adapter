@@ -4,6 +4,7 @@ import asyncio
 import websockets as Server
 from typing import Tuple, Optional
 
+from src.compatibleDict import make_compatible
 from src.logger import logger
 from src.config import global_config
 from src.database import BanUser, db_manager, is_identical
@@ -72,6 +73,7 @@ class NoticeHandler:
         db_manager.delete_ban_record(ban_record)  # 删除数据库中的记录
 
     async def handle_notice(self, raw_message: dict) -> None:
+        raw_message = make_compatible(raw_message)
         notice_type = raw_message.get("notice_type")
         # message_time: int = raw_message.get("time")
         message_time: float = time.time()  # 应可乐要求，现在是float了
