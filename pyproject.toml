@@ -9,7 +9,10 @@ dependencies = [
     "maim-message>=0.3.6",
     "pillow>=11.2.1",
     "requests>=2.32.4",
+    "rich>=14.0.0",
+    "sqlmodel>=0.0.24",
     "tomli>=2.2.1",
+    "tomlkit>=0.13.3",
     "websockets>=15.0.1",
 ]
 
