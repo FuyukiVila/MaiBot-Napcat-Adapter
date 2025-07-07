@@ -254,6 +254,7 @@ class SendHandler:
             "type": "music",
             "data": {"type": "163", "id": song_id},
         }
+
     def handle_videourl_message(self, video_url: str) -> dict:
         """处理视频链接消息"""
         return {
