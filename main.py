@@ -1,6 +1,7 @@
 import asyncio
 import sys
 import json
+from src.compatibleDict import make_compatible, CompatibleDict
 import websockets as Server
 from src.logger import logger
 from src.recv_handler.message_handler import message_handler
@@ -33,6 +34,7 @@ async def message_process():
     while True:
         message = await message_queue.get()
         post_type = message.get("post_type")
+        message: CompatibleDict = make_compatible(message)
         if post_type == "message":
             await message_handler.handle_raw_message(message)
         elif post_type == "meta_event":

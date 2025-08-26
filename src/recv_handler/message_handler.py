@@ -17,7 +17,7 @@ import json
 import websockets as Server
 from typing import List, Tuple, Optional, Dict, Any
 import uuid
-from src.compatibleDict import CompatibleDict, make_compatible
+from src.compatibleDict import CompatibleDict
 
 from maim_message import (
     UserInfo,
@@ -97,7 +97,7 @@ class MessageHandler:
 
         return True
 
-    async def handle_raw_message(self, raw_message: dict) -> None:
+    async def handle_raw_message(self, raw_message: CompatibleDict) -> None:
         # sourcery skip: low-code-quality, remove-unreachable-code
         """
         从Napcat接受的原始消息处理
@@ -105,7 +105,6 @@ class MessageHandler:
         Parameters:
             raw_message: dict: 原始消息
         """
-        raw_message = make_compatible(raw_message)
         message_type: str = raw_message.get("message_type")
         message_id: int = raw_message.get("message_id")
         # message_time: int = raw_message.get("time")

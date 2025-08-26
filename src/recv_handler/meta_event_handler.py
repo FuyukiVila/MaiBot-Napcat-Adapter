@@ -1,4 +1,4 @@
-from src.compatibleDict import make_compatible
+from src.compatibleDict import CompatibleDict
 from src.logger import logger
 from src.config import global_config
 import time
@@ -16,8 +16,7 @@ class MetaEventHandler:
         self.interval = global_config.napcat_server.heartbeat_interval
         self._interval_checking = False
 
-    async def handle_meta_event(self, message: dict) -> None:
-        message = make_compatible(message)
+    async def handle_meta_event(self, message: CompatibleDict) -> None:
         event_type = message.get("meta_event_type")
         if event_type == MetaEventType.lifecycle:
             sub_type = message.get("sub_type")
