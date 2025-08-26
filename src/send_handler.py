@@ -274,7 +274,7 @@ class SendHandler:
             "type": "file",
             "data": {"file": f"file://{file_path}"},
         }
-    
+
     def handle_imageurl_message(self, image_url: str) -> dict:
         """处理图片链接消息"""
         return {
