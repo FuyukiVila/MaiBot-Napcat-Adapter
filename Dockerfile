@@ -16,7 +16,7 @@ RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
 RUN pip config set global.trusted-host mirrors.aliyun.com
 RUN pip install --upgrade pip --no-cache-dir
 RUN pip install uv --no-cache-dir
-RUN uv sync --index-url https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --no-cache
+RUN uv sync --index-url https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 
 EXPOSE 8095
 
