@@ -1,20 +1,24 @@
-FROM python:3.13.5-slim
-LABEL authors="infinitycat233"
+FROM m.daocloud.io/docker.io/python:slim
 
-# Copy uv and maim_message
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
-COPY maim_message /maim_message
-COPY requirements.txt /requirements.txt
-
-# Install requirements
-RUN uv pip install --system --upgrade pip
-RUN uv pip install --system -e /maim_message
-RUN uv pip install --system -r /requirements.txt
-
+# Set working directory and copy project
 WORKDIR /adapters
 
-COPY . .
+COPY src/ src/
+COPY template/ template/
+COPY uv.lock .
+COPY pyproject.toml .
+COPY requirements.txt .
+COPY main.py .
+
+
+# Install project dependencies
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
+RUN pip config set global.trusted-host mirrors.aliyun.com
+RUN pip install --upgrade pip --no-cache-dir
+RUN pip install uv --no-cache-dir
+RUN uv sync --index-url https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --no-cache
 
 EXPOSE 8095
 
-ENTRYPOINT ["python", "main.py"]
+# Default command
+CMD ["uv", "run", "main.py"]
