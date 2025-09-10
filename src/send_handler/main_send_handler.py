@@ -101,4 +101,5 @@ class SendHandler:
         else:
             logger.warning(f"消息发送失败，napcat返回：{str(response)}")
 
+
 send_handler = SendHandler()

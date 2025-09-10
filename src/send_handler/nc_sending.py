@@ -7,13 +7,14 @@ from src.response_pool import get_response
 from src.logger import logger
 from src.recv_handler.message_sending import message_send_instance
 
+
 class NCMessageSender:
     def __init__(self):
         self.server_connection: Server.ServerConnection = None
-    
+
     async def set_server_connection(self, connection: Server.ServerConnection):
         self.server_connection = connection
-    
+
     async def send_message_to_napcat(self, action: str, params: dict) -> dict:
         request_uuid = str(uuid.uuid4())
         payload = json.dumps({"action": action, "params": params, "echo": request_uuid})
@@ -27,7 +28,7 @@ class NCMessageSender:
             logger.error(f"发送消息失败: {e}")
             return {"status": "error", "message": str(e)}
         return response
-    
+
     async def message_sent_back(self, message_base: MessageBase, qq_message_id: str) -> None:
         # 修改 additional_config，添加 echo 字段
         if message_base.message_info.additional_config is None:
@@ -45,5 +46,6 @@ class NCMessageSender:
         await message_send_instance.message_send(message_base)
         logger.debug("已回送消息ID")
         return
+
 
 nc_message_sender = NCMessageSender()
